@@ -217,21 +217,21 @@ int sub_func()
         sub_hours=work_hours-cli_hours;
         /*If final hours <=0 delete the entry of employee from works on table*/
         if(sub_hours<=0)
-		{
-			EXEC SQL DELETE FROM sg0130.WORKS_ON
-			WHERE essn = :cli_ssn AND
-			pno= :pnumber;
-			printf("Employee %s %s used to work on project %s for %.2f hours.The employee stopped working on this project\n\n",fname,lname,pname,work_hours);
-            fname=NULL;
-            lname=NULL;
-            pname=NULL;
+	{
+		EXEC SQL DELETE FROM sg0130.WORKS_ON
+		WHERE essn = :cli_ssn AND
+		pno= :pnumber;
+		printf("Employee %s %s used to work on project %s for %.2f hours.The employee stopped working on this project\n\n",fname,lname,pname,work_hours);
+            	fname=NULL;
+            	lname=NULL;
+            	pname=NULL;
         }
         else
         {   
             EXEC SQL UPDATE sg0130.WORKS_ON
-		    SET hours = :sub_hours
-		    WHERE essn = :cli_ssn AND
-		    pno= :pnumber;
+	    SET hours = :sub_hours
+	    WHERE essn = :cli_ssn AND
+	    pno= :pnumber;
             printf("The number of hours worked on project %s by employee %s %s decreased from %.2f to %.2f\n\n",pname,fname,lname,work_hours,sub_hours);
             fname=NULL;
             lname=NULL;
@@ -294,23 +294,23 @@ int EmpDetails()
     
     /*Define a cursor to retrieve the total hours worked by the employee on all the project*/
     EXEC SQL DECLARE emp_total_hours CURSOR FOR  
-	SELECT e.fname,e.lname,sum(w.hours) as total_hours 
+    SELECT e.fname,e.lname,sum(w.hours) as total_hours 
     FROM sg0130.employee e,sg0130.project p,sg0130.works_on w
     WHERE essn=ssn and 
     pno=pnumber and
     ssn=:cli_ssn 
     group by fname,lname;
-	EXEC SQL OPEN emp_total_hours;
-	EXEC SQL WHENEVER NOT FOUND DO BREAK;
+    EXEC SQL OPEN emp_total_hours;
+    EXEC SQL WHENEVER NOT FOUND DO BREAK;
 
-	while (SQLCODE==0)
-	{
+    while (SQLCODE==0)
+    {
         if(flag==1)
-		    break;
+		break;
         EXEC SQL FETCH IN emp_total_hours INTO :fname, :lname,:total_hours;  
         printf("2.The Employee %s %s works total of %.2f hours on all projects\n\n",fname,lname,total_hours);
         flag=1;
-	}
+    }
     EXEC SQL CLOSE emp_total_hours;
 
     /*Define a cursor to retrieve the salary the department the employee belongs too*/
