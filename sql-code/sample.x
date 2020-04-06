@@ -123,11 +123,11 @@ int add_func()
     of the project that he/she is working on along with number of hours spent on that project*/
     EXEC SQL DECLARE emp_proj_details CURSOR FOR
     SELECT e.fname, e.lname, p.pname, COALESCE(w.hours,0)
-	FROM sg0130.WORKS_ON w, sg0130.EMPLOYEE e, sg0130.PROJECT p
-	WHERE w.essn = :cli_ssn AND
-	w.essn = e.ssn AND
-	p.pnumber = w.Pno AND
-	pno= :pnumber;
+    FROM sg0130.WORKS_ON w, sg0130.EMPLOYEE e, sg0130.PROJECT p
+    WHERE w.essn = :cli_ssn AND
+    w.essn = e.ssn AND
+    p.pnumber = w.Pno AND
+    pno= :pnumber;
     /*Opening the CURSOR*/
     EXEC SQL OPEN emp_proj_details;
     /*Fetching the CURSOR*/
@@ -140,9 +140,9 @@ int add_func()
         added_hours=work_hours+cli_hours;
 
         EXEC SQL UPDATE sg0130.WORKS_ON
-		SET hours = :added_hours
-		WHERE essn = :cli_ssn AND
-		pno= :pnumber;
+	SET hours = :added_hours
+	WHERE essn = :cli_ssn AND
+	pno= :pnumber;
         printf("The number of hours worked on project %s by employee %s %s increased from %.2f to %.2f hours\n\n",pname,fname,lname,work_hours,added_hours);
         fname=NULL;
         lname=NULL;
@@ -201,11 +201,11 @@ int sub_func()
     of the project that he/she is working on along with number of hours spent on that project*/
     EXEC SQL DECLARE emp_proj_details_sub CURSOR FOR
     SELECT e.fname, e.lname, p.pname, COALESCE(w.hours,0)
-	FROM sg0130.WORKS_ON w, sg0130.EMPLOYEE e, sg0130.PROJECT p
-	WHERE w.essn = :cli_ssn AND
-	w.essn = e.ssn AND
-	p.pnumber = w.Pno AND
-	pno= :pnumber;
+    FROM sg0130.WORKS_ON w, sg0130.EMPLOYEE e, sg0130.PROJECT p
+    WHERE w.essn = :cli_ssn AND
+    w.essn = e.ssn AND
+    p.pnumber = w.Pno AND
+    pno= :pnumber;
     /*Opening the CURSOR*/
     EXEC SQL OPEN emp_proj_details_sub;
     /*Fetching the CURSOR*/
