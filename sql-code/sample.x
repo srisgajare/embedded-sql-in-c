@@ -330,33 +330,33 @@ int EmpDetails()
     EXEC SQL CLOSE emp_dept_details;
 
     /*Define a cursor to retrieve the number of dependents if any of an employee*/
-	EXEC SQL DECLARE emp_deps CURSOR FOR 
-	SELECT e.fname,e.lname, count(t.dependent_name) no_of_dependents 
-	FROM sg0130.employee e, sg0130.dependent t 
-	WHERE e.ssn = t.essn
-	AND e.ssn = :cli_ssn		 
-	GROUP BY t.essn,e.fname,e.lname;
-	EXEC SQL OPEN emp_deps;
+    EXEC SQL DECLARE emp_deps CURSOR FOR 
+    SELECT e.fname,e.lname, count(t.dependent_name) no_of_dependents 
+    FROM sg0130.employee e, sg0130.dependent t 
+    WHERE e.ssn = t.essn
+    AND e.ssn = :cli_ssn		 
+    GROUP BY t.essn,e.fname,e.lname;
+    EXEC SQL OPEN emp_deps;
     EXEC SQL WHENEVER NOT FOUND DO BREAK;
 
-	while (SQLCODE==0)
-	{	
-		EXEC SQL FETCH IN emp_deps INTO :fname,:lname, :no_of_deps;
-		printf("4.The no of dependents of Employee %s %s are %d\n\n",fname,lname,no_of_deps);   
-	}
+    while (SQLCODE==0)
+    {	
+	EXEC SQL FETCH IN emp_deps INTO :fname,:lname, :no_of_deps;
+	printf("4.The no of dependents of Employee %s %s are %d\n\n",fname,lname,no_of_deps);   
+    }
     /*If the employee has no dependents then enter this loop*/
-	if(no_of_deps==0)
-	{   
+    if(no_of_deps==0)
+    {   
         flag=0;
-		while (SQLCODE==100)
-		{
-			if (flag==1)
-				break;
-			printf("4.The employee %s %s has no dependents\n\n",fname,lname);
-			flag = 1;
-		}
+	while (SQLCODE==100)
+	{
+	    if (flag==1)
+		break;
+	    printf("4.The employee %s %s has no dependents\n\n",fname,lname);
+		flag = 1;
 	}
-	EXEC SQL CLOSE emp_deps;
+    }
+    EXEC SQL CLOSE emp_deps;
 
     /*Define cursor to retrieve average salary of each department and hence find the difference 
     between this and employee salary*/
