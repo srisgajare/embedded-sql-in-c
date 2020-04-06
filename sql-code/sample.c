@@ -91,17 +91,6 @@ struct sqlca_t *ECPGget_sqlca(void);
 
 /*Declare Global variables*/
 /* exec sql begin declare section */
-     
-     
-     
-     
-     
-     
-     
-     
-      
-     
-     
 
 #line 14 "sample.x"
  char * fname = NULL ;
