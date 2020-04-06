@@ -5,8 +5,7 @@
 #include <sqlca.h>
 /* End of automatic include section */
 
-#line 1 "sg0130Company.x"
-/* Source code for sg0130Company.x
+/* Source code for sample.x
 By Srishti Gajare
 March 25,2020
 */
