@@ -1,4 +1,4 @@
-/* Source code for sg0130Company.x
+/* Source code for sample.x
 By Srishti Gajare
 March 25,2020
 */
