@@ -1,7 +1,7 @@
 # embedded-sql-in-c
 
 A program written in C interacts with the postgresql DB and provides the required output. 
-The code assumes the [Employee schema](https://images.app.goo.gl/QMkDT5EQ7mYVBRvP). The code either adds or subtracts employee working hours from the CLI without actually running the sql queries.  
+The code refers Fundamentals of Database Systems by Elmasri, Navathe 7th edition Figure 5.5 Employee Database. The code either adds or subtracts employee working hours from the CLI without actually running the sql queries.  
 Command to run the code:
 
 ```
